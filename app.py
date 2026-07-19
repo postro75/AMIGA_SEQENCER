@@ -700,7 +700,7 @@ class DrumSequencerApp:
         status = self.fonts["small"].render(self.state.status, True, TEXT)
         self.screen.blit(status, (self.margin, y + 16))
         help_txt = self.fonts["tiny"].render(
-            "SAMPLES=Amiga ST/MOD · K cycle kit · F2 kit menu · RHYTHM 1-8 · SPACE play · S MIDI · Q quit",
+            "SAMPLES F2/K · RHYTHM Tab/1-8 · LMB pad · SPACE play · S MIDI · C clear · [ ] swing · +/- bpm · Q quit",
             True,
             MUTED,
         )

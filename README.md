@@ -27,7 +27,8 @@ python main.py
 ```bash
 python main.py --skip-demo      # bez intro
 python main.py --bpm 128
-python main.py --demo-ms 12000
+python main.py --demo-ms 12000  # długość intro (ms)
+python main.py --width 1280 --height 800
 ```
 
 > Na Pythonie 3.14 preferuj **pygame-ce** (w `requirements.txt`) — pełny `font` + `mixer`.
@@ -64,11 +65,11 @@ Zobacz też `samples/SOURCES.md`.
 | Zapisz MIDI | `S` |
 | Clear pattern | `C` |
 | Menu rytmów | **RHYTHM** / `Tab` / `1`–`8` |
-| Menu kitów | **SAMPLES** / `F2` / `K` |
-| BPM | `+` / `-` |
+| Menu kitów | **SAMPLES** / `F2` / `K` (cykl kitów) |
+| BPM | `+` / `-` · Shift+klik przycisku ±5 |
 | Swing | `[` / `]` |
 | Mute / Solo | **M** / **S** |
-| Quit | `Q` / `Esc` |
+| Quit | `Q` / `Esc` (Esc zamyka też menu) |
 
 ### Genre presets
 
