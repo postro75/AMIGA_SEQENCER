@@ -1,25 +1,48 @@
-# DRUMSEQ — Retro Rack
+# AMIGA_SEQENCER (DRUMSEQ — Retro Rack)
 
-Perkusyjny **step sequencer** w Pythonie z:
+Perkusyjny **step sequencer** w Pythonie z brzmieniem Amigi, UI w stylu Ableton i retro demoscene intro.
 
-- intro w stylu **Atari / demoscene** (starfield, plasma, copper bars, scroller, chip beeps)
-- UI wzorowanym na **Ableton** (tracki, pady 16 kroków, mute/solo, playhead, transport)
-- estetyką **retro neon + CRT scanlines**
-- **proceduralnymi** bębnami **oraz oryginalnymi samplami Amiga ST-xx** (IFF 8SVX)
-- odczytem instrumentów z plików **ProTracker .MOD**
-- **eksportem do pliku MIDI** (GM channel 10)
+[![Python](https://img.shields.io/badge/python-3.12%2B-blue)](https://www.python.org/)
+[![License](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 
-### Sample kit (Amiga)
+## Features
+
+- **Intro Atari / demoscene** — starfield, plasma, copper bars, scroller, chip beeps, CRT scanlines
+- **UI Ableton-style** — 10 tracków × 16 kroków, velocity, mute/solo, playhead, transport
+- **Sample kits Amiga ST-xx** — oryginalne dyski Soundtracker (IFF 8SVX) z Aminetu
+- **ProTracker MOD** — ekstrakcja instrumentów z plików `.mod`
+- **Synteza proceduralna** — fallback bez sampli
+- **Presety gatunków** — Rock, Blues, Modern Pop, Disco 80s, Synthpop, Hip Hop, Rap/Trap
+- **Eksport MIDI** — GM channel 10 (Standard MIDI File)
+
+## Quick start
+
+```bash
+git clone https://github.com/postro75/AMIGA_SEQENCER.git
+cd AMIGA_SEQENCER
+pip install -r requirements.txt
+python main.py
+```
+
+```bash
+python main.py --skip-demo      # bez intro
+python main.py --bpm 128
+python main.py --demo-ms 12000
+```
+
+> Na Pythonie 3.14 preferuj **pygame-ce** (w `requirements.txt`) — pełny `font` + `mixer`.
+
+## Sample kits (Amiga)
 
 Menu **SAMPLES** w UI:
 
 | Źródło | Opis |
 |--------|------|
 | SYNTH | proceduralne bębny |
-| **ST-01 / ST-02 / ST-03** | klasyczne dyski Soundtracker z Aminetu |
-| **MOD:…** | instrumenty wyciągnięte z `.mod` w `samples/MOD/` |
+| **ST-01 / ST-02 / ST-03** | klasyczne dyski Soundtracker |
+| **MOD:…** | instrumenty z `.mod` w `samples/MOD/` |
 
-Pobierz / odśwież dyski:
+Odśwież / dociągnij dyski:
 
 ```bash
 pip install lhafile
@@ -28,45 +51,26 @@ python fetch_amiga_samples.py --disks 1,2,3,4,5
 ```
 
 Źródła: [Aminet mods/inst](https://aminet.net/mods/inst), [Archive.org AmigaSTXX](https://archive.org/details/AmigaSTXX) (Public Domain Mark).  
-Własne sample: wrzuć folder do `samples/` albo pliki `.mod` do `samples/MOD/`.
+Własne sample: folder w `samples/` albo pliki `.mod` w `samples/MOD/`.  
+Zobacz też `samples/SOURCES.md`.
 
-## Start
-
-```bash
-cd drum_sequencer
-pip install -r requirements.txt   # uses pygame-ce (best on Python 3.12+)
-python main.py
-```
-
-> Na Pythonie 3.14 zwykły `pygame` bywa bez `font`/`mixer` — dlatego w requirements jest **pygame-ce**.
-
-Opcje:
-
-```bash
-python main.py --skip-demo      # od razu sequencer
-python main.py --bpm 128
-python main.py --demo-ms 12000  # dłuższe intro
-```
-
-## Sterowanie
+## Controls
 
 | Akcja | Klawisz / mysz |
 |--------|----------------|
-| Play / Pause | `Space` lub przycisk PLAY |
-| Stop (krok 1) | `R` lub STOP |
-| Cykl velocity pada (0→1→2→3→4→0) | LPM |
-| Cofnij velocity | PPM |
-| Zapisz MIDI | `S` lub SAVE MIDI |
-| Wyczyść pattern | `C` |
-| Menu rytmów (dropdown) | klik **RHYTHM** / `Tab` |
-| Preset 1–8 | klawisze `1`…`8` |
-| Załaduj demo groove | `D` |
-| BPM ±1 | `+` / `-` (Shift+klik ±5) |
+| Play / Pause | `Space` |
+| Stop (krok 1) | `R` |
+| Velocity pada | LPM cykl / PPM wstecz |
+| Zapisz MIDI | `S` |
+| Clear pattern | `C` |
+| Menu rytmów | **RHYTHM** / `Tab` / `1`–`8` |
+| Menu kitów | **SAMPLES** / `F2` / `K` |
+| BPM | `+` / `-` |
 | Swing | `[` / `]` |
-| Mute / Solo track | przyciski **M** / **S** |
-| Wyjście | `Q` / `Esc` (Esc zamyka też menu) |
+| Mute / Solo | **M** / **S** |
+| Quit | `Q` / `Esc` |
 
-### Presety gatunków
+### Genre presets
 
 | # | Rytm | BPM | Swing |
 |---|------|-----|-------|
@@ -79,33 +83,47 @@ python main.py --demo-ms 12000  # dłuższe intro
 | 7 | Hip Hop | 90 | 18% |
 | 8 | Rap / Trap | 140 | 8% |
 
-## MIDI
+## MIDI export
 
-Pliki lądują w `exports/drumseq_YYYYMMDD_HHMMSS.mid`.
+Pliki: `exports/drumseq_YYYYMMDD_HHMMSS.mid`
 
-- Format: Standard MIDI File Type 1  
-- Kanał: **10** (GM drums)  
-- Resolution: 480 PPQ, 16th-note grid  
+- SMF Type 1, 480 PPQ, 16th grid  
+- Kanał **10** (GM drums)  
 - Velocity tiers: 55 / 80 / 100 / 127  
 
-Mapa GM: Kick 36, Snare 38, Clap 39, Rim 37, CHH 42, OHH 46, Tom Lo 41, Tom Hi 45, Crash 49, Cowbell 56.
+GM: Kick 36, Snare 38, Clap 39, Rim 37, CHH 42, OHH 46, Tom Lo 41, Tom Hi 45, Crash 49, Cowbell 56.
 
 ## Stack
 
-- **pygame** — UI + demo visuals  
-- **sounddevice** — audio (fallback gdy `pygame.mixer` niedostępny)  
-- **numpy** — synteza bębnów  
-- **mido** — zapis MIDI  
+| Lib | Rola |
+|-----|------|
+| pygame-ce | UI, demo, audio |
+| sounddevice | fallback audio |
+| numpy | synteza / resample |
+| mido | MIDI |
+| lhafile | rozpakowanie ST-xx z Aminetu |
 
-## Struktura
+## Layout
 
 ```
-drum_sequencer/
-  main.py          # entrypoint
-  demo.py          # Atari intro
-  app.py           # DAW UI + transport
-  patterns.py      # classic genre presets
-  synth.py         # procedural drums
-  midi_export.py   # SMF writer
-  exports/         # zapisane .mid
+.
+├── main.py                 # entrypoint
+├── demo.py                 # Atari intro
+├── app.py                  # DAW UI + transport + dropdowns
+├── patterns.py             # genre presets
+├── synth.py                # procedural drums
+├── sample_kit.py           # ST / MOD kit loader
+├── amiga_io.py             # IFF 8SVX + MOD instruments
+├── midi_export.py          # SMF writer
+├── audio_engine.py         # pygame / sounddevice
+├── fetch_amiga_samples.py  # Aminet downloader
+├── samples/
+│   ├── ST-01/ ST-02/ ST-03/
+│   ├── MOD/
+│   └── SOURCES.md
+└── exports/
 ```
+
+## License
+
+MIT — kod aplikacji. Sample ST-xx: historyczne materiały demoscene / tracker (zob. `samples/SOURCES.md`).
