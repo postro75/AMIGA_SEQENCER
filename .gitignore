@@ -1,0 +1,15 @@
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+.env
+.DS_Store
+
+# Local caches / build artifacts
+samples/_download/
+exports/*.png
+exports/_*.mid
+
+# Keep user MIDI exports local by default
+exports/drumseq_*.mid

@@ -1,0 +1,6 @@
+# pygame-ce is preferred (full font/mixer on modern Python); plain pygame also works on older builds
+pygame-ce>=2.5.0
+mido>=1.3.0
+numpy>=1.24.0
+sounddevice>=0.4.6
+lhafile>=0.2.2
