@@ -1,4 +1,4 @@
-# pygame-ce is preferred (full font/mixer on modern Python); plain pygame also works on older builds
+# pygame-ce preferred on Python 3.12+ (complete font/mixer); plain pygame often incomplete on newer CPython
 pygame-ce>=2.5.0
 mido>=1.3.0
 numpy>=1.24.0

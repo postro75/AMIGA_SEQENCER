@@ -31,44 +31,44 @@ python main.py --demo-ms 12000  # długość intro (ms)
 python main.py --width 1280 --height 800
 ```
 
-> Na Pythonie 3.14 preferuj **pygame-ce** (w `requirements.txt`) — pełny `font` + `mixer`.
+> Na nowszych Pythonach (**3.12+**) używaj **pygame-ce** z `requirements.txt` — pełny `font` i `mixer` (zwykły wheel `pygame` bywa niekompletny).
 
 ## Sample kits (Amiga)
 
-Menu **SAMPLES** w UI:
+Menu **SAMPLES** w UI — wykrywa foldery `samples/ST-*` i pliki `.mod` automatycznie:
 
 | Źródło | Opis |
 |--------|------|
 | SYNTH | proceduralne bębny |
-| **ST-01 / ST-02 / ST-03** | klasyczne dyski Soundtracker |
-| **MOD:…** | instrumenty z `.mod` w `samples/MOD/` |
+| **ST-xx** | dyski Soundtracker w `samples/ST-01`, `ST-02`, … (dowolny numer) |
+| **MOD:…** | instrumenty z każdego `.mod` w `samples/MOD/` |
 
-Odśwież / dociągnij dyski:
+W repo domyślnie są ST-01…03 (+ demo MOD). Kolejne dyski:
 
 ```bash
 pip install lhafile
-python fetch_amiga_samples.py            # ST-01..03 + demo MOD
-python fetch_amiga_samples.py --disks 1,2,3,4,5
+python fetch_amiga_samples.py                 # ST-01..03 + demo MOD
+python fetch_amiga_samples.py --disks 1,2,3,4,5   # też ST-04, ST-05, …
 ```
 
 Źródła: [Aminet mods/inst](https://aminet.net/mods/inst), [Archive.org AmigaSTXX](https://archive.org/details/AmigaSTXX) (Public Domain Mark).  
-Własne sample: folder w `samples/` albo pliki `.mod` w `samples/MOD/`.  
+Własne sample: folder `samples/ST-NN/` albo `samples/MOD/*.mod` (albo inny podfolder w `samples/`).  
 Zobacz też `samples/SOURCES.md`.
 
 ## Controls
 
-| Akcja | Klawisz / mysz |
-|--------|----------------|
+| Akcja | Sterowanie |
+|--------|------------|
 | Play / Pause | `Space` |
 | Stop (krok 1) | `R` |
 | Velocity pada | LPM cykl / PPM wstecz |
-| Zapisz MIDI | `S` |
+| Zapisz MIDI | `S` (klawisz) |
 | Clear pattern | `C` |
 | Menu rytmów | **RHYTHM** / `Tab` / `1`–`8` |
 | Menu kitów | **SAMPLES** / `F2` / `K` (cykl kitów) |
 | BPM | `+` / `-` · Shift+klik przycisku ±5 |
 | Swing | `[` / `]` |
-| Mute / Solo | **M** / **S** |
+| Mute / Solo track | **klik w przyciski M / S** przy nazwie tracka (nie skróty klawiszowe — `S` zapisuje MIDI) |
 | Quit | `Q` / `Esc` (Esc zamyka też menu) |
 
 ### Genre presets
@@ -119,7 +119,7 @@ GM: Kick 36, Snare 38, Clap 39, Rim 37, CHH 42, OHH 46, Tom Lo 41, Tom Hi 45, Cr
 ├── audio_engine.py         # pygame / sounddevice
 ├── fetch_amiga_samples.py  # Aminet downloader
 ├── samples/
-│   ├── ST-01/ ST-02/ ST-03/
+│   ├── ST-01/ ST-02/ …     # dowolne ST-xx
 │   ├── MOD/
 │   └── SOURCES.md
 └── exports/
